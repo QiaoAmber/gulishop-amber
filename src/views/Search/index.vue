@@ -1,11 +1,13 @@
 <template>
-$END$
+  <div>search
+    <p>{{ $route.params.keyword }}</p>
+  </div>
 </template>
 
 <script>
 export default {
-name: "index"
-}
+  name: "Search"
+};
 </script>
 
 <style scoped>

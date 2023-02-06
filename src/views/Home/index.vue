@@ -1,13 +1,21 @@
 <template>
-$END$
+  <div>
+    <TypeNav></TypeNav>
+    <ListContainer></ListContainer>
+  </div>
 </template>
 
 <script>
+import ListContainer from "@/views/Home/ListContainer";
+
 export default {
-name: "index"
-}
+  name: "Home",
+  components: {
+    ListContainer
+  }
+};
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

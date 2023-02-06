@@ -1,11 +1,11 @@
 <template>
-$END$
+  <div>register</div>
 </template>
 
 <script>
 export default {
-name: "index"
-}
+  name: "Register"
+};
 </script>
 
 <style scoped>
