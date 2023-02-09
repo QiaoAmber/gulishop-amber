@@ -3,7 +3,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 const request = axios.create({
-  baseURL: "http://sph-h5-api.atguigu.cn/api",
+  baseURL: "/mock",
   timeout: 20000,
 });
 

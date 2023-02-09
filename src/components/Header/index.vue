@@ -32,8 +32,19 @@
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input v-model="keyword" type="text" id="autocomplete" class="input-error input-xxlarge" />
-          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="searchHandler">搜索</button>
+          <input
+            v-model="keyword"
+            type="text"
+            id="autocomplete"
+            class="input-error input-xxlarge"
+          />
+          <button
+            class="sui-btn btn-xlarge btn-danger"
+            type="button"
+            @click="searchHandler"
+          >
+            搜索
+          </button>
         </form>
       </div>
     </div>
@@ -51,7 +62,20 @@ export default {
   methods: {
     searchHandler() {
       this.$router.push("/search/" + this.keyword);
+    },
+    clearContent() {
+      this.keyword = "";
     }
+  },
+  mounted() {
+    this.clearContent();
+    this.$bus.$on("deleteKeyword", this.clearContent);
+    // this.$bus.$on('deleteKeyword',()=>{
+    //   this.keyword='';
+    // })
+    // this.$bus.$on('deleteKeyword',function(){
+    //   console.log(this);
+    // })
   }
 };
 </script>

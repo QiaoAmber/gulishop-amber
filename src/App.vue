@@ -13,6 +13,14 @@ export default {
   components: {
     Header,
     Footer
+  },
+  methods: {
+    getCategoryList() {
+      this.$store.dispatch("getCategoryList");
+    }
+  },
+  mounted() {
+    this.getCategoryList();
   }
 };
 </script>
