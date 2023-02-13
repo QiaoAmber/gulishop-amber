@@ -5,6 +5,8 @@ import Login from "@/views/Login";
 import Register from "@/views/Register";
 import Search from "@/views/Search";
 import Detail from "@/views/Detail";
+import ShopCart from "@/views/ShopCart";
+import AddCartSuccess from "@/views/AddCartSuccess";
 
 Vue.use(VueRouter);
 
@@ -12,34 +14,44 @@ const routes = [
   {
     name: "home",
     path: "/",
-    component: Home,
+    component: Home
   },
   {
     name: "login",
     path: "/login",
     component: Login,
     meta: {
-      isFootHide: true,
-    },
+      isFootHide: true
+    }
   },
   {
     name: "register",
     path: "/register",
     component: Register,
     meta: {
-      isFootHide: true,
-    },
+      isFootHide: true
+    }
   },
   {
     name: "search",
     path: "/search/:keyword?",
-    component: Search,
+    component: Search
   },
   {
     name: "detail",
     path: "/detail/:skuId",
-    component: Detail,
+    component: Detail
   },
+  {
+    name: "shopcart",
+    path: "/shopcart",
+    component: ShopCart
+  },
+  {
+    name: "addCartSuccess",
+    path: "/addCartSuccess",
+    component: AddCartSuccess
+  }
 ];
 
 const router = new VueRouter({
@@ -48,7 +60,7 @@ const router = new VueRouter({
   routes,
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
-  },
+  }
 });
 
 const OriginPush = VueRouter.prototype.push;

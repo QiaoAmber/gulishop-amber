@@ -100,7 +100,7 @@
           </div>
           <!-- 分页器 -->
           <Pagination
-            v-show="goodsInfoList.totalPages>0"
+            v-if="goodsInfoList.totalPages>0"
             :pageNo="searchInfo.pageNo"
             :pageSize="searchInfo.pageSize"
             :total="goodsInfoList.total"

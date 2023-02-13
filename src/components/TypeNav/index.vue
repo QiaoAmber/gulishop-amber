@@ -8,7 +8,7 @@
             <div
               class="item"
               v-for="(c1, index) in categoryList"
-              @mouseenter="movein(index)"
+              @mouseenter="moveIn(index)"
               :class="{ a_active: currentIndex === index }"
               :key="c1.categoryId"
             >
@@ -68,7 +68,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { throttle } from "lodash";
+import { debounce, throttle } from "lodash";
 
 export default {
   name: "TypeNav",
@@ -80,13 +80,9 @@ export default {
   },
 
   methods: {
-    movein: throttle(
-      function(index) {
-        this.currentIndex = index;
-      },
-      200,
-      { trailing: false }
-    ),
+    moveIn: debounce(function(index) {
+      this.currentIndex = index;
+    }, 200),
     clickHandler(e) {
       const { categoryname, category1id, category2id, category3id } =
         e.target.dataset;
@@ -116,7 +112,7 @@ export default {
       categoryList: (state) => state.home.categoryList
     })
   },
-  mounted(){
+  mounted() {
     if (this.$route.name !== "home") this.isShow = false;
   }
   // methods: {

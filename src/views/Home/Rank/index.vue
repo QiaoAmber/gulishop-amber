@@ -86,15 +86,14 @@
 
 <script>
 export default {
-  name: "Rank",
+  name: "Rank"
 };
 </script>
 
-<style  lang="less" scoped>
+<style lang="less" scoped>
 .rank {
   width: 1200px;
   margin: 0 auto;
-
   .tab {
     margin: 0 auto;
     overflow: hidden;

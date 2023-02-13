@@ -1,11 +1,11 @@
 <template>
   <div class="spec-preview">
-    <img :src="defaultImg" />
-    <div class="event"></div>
+    <img :src="defaultImg.imgUrl" />
+    <div class="event" @mousemove="eventHandler" ref="eventDiv"></div>
     <div class="big">
-      <img :src="defaultImg" />
+      <img :src="defaultImg.imgUrl" ref="bigImg" />
     </div>
-    <div class="mask"></div>
+    <div class="mask" ref="mask"></div>
   </div>
 </template>
 
@@ -20,7 +20,32 @@ export default {
   },
   computed: {
     defaultImg() {
-      return this.imageList[this.defaultIndex].imgUrl;
+      return this.imageList[this.defaultIndex] || {};
+    }
+  },
+  methods: {
+    eventHandler(e) {
+      const mask = this.$refs.mask;
+      const bigImg = this.$refs.bigImg;
+      const eventDiv = this.$refs.eventDiv;
+      let mouseX = e.offsetX;
+      let mouseY = e.offsetY;
+      let left = mouseX - mask.offsetWidth / 2;
+      let top = mouseY - mask.offsetHeight / 2;
+      if (left < 0) {
+        left = 0;
+      } else if (left > eventDiv.offsetWidth - mask.offsetWidth) {
+        left = eventDiv.offsetWidth - mask.offsetWidth;
+      }
+      if (top < 0) {
+        top = 0;
+      } else if (top > eventDiv.offsetHeight - mask.offsetHeight) {
+        top = eventDiv.offsetHeight - mask.offsetHeight;
+      }
+      mask.style.left = left + "px";
+      mask.style.top = top + "px";
+      bigImg.style.left = -2 * left + "px";
+      bigImg.style.top = -2 * top + "px";
     }
   },
   mounted() {

@@ -4,7 +4,6 @@
       <ul>
         <li class="prev" @click="$emit('changePage',pageNo-1)" :class="{ disabled: pageNo === 1 }">
           <a href="javascript:;">«上一页</a>
-          >
         </li>
         <li :class="{ active: pageNo === 1 }" v-if="page.start !== 1" @click="$emit('changePage',1)">
           <a href="javascript:;">1</a>
@@ -68,15 +67,8 @@ export default {
       }
 
       return { start, end };
-    },
-    currentPage(){
-      return this.pageNo
     }
-  },
-  mounted() {
-    console.log(this.currentPage);
-  },
-
+  }
 };
 </script>
 

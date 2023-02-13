@@ -39,3 +39,39 @@ export const postGoodsList = (data) => {
 export const getSkuInfo = (id) => {
   return request.get(`/item/${id}`);
 };
+
+export const postAddCart = (skuId, skuNum) => {
+  return request.post(`/cart/addToCart/${skuId}/${skuNum}`);
+};
+
+export const getCartInfo = () => {
+  return request.get("/cart/cartList");
+};
+
+//GET /api/cart/checkCart/{skuId}/{isChecked}
+export const getCartIsChecked = (skuId, isChecked) => {
+  return request.get(`/cart/checkCart/${skuId}/${isChecked}`);
+};
+
+export const deleteCartItem = (skuId) => {
+  return request.delete(`/cart/deleteCart/${skuId}`);
+};
+
+export const getSendCode = (phone) => {
+  return request.get(`/user/passport/sendCode/${phone}`);
+};
+
+export const postRegister = (userInfo) => {
+  return request.post("/user/passport/register", userInfo);
+};
+
+//POST /api/user/passport/login
+export const postLogin = (userInfo) => {
+  return request.post("/user/passport/login", userInfo);
+};
+
+//GET /api/user/passport/logout
+
+export const getLogout = () => {
+  return request.get("/user/passport/logout");
+};

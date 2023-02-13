@@ -7,24 +7,24 @@
     <section class="con">
       <!-- 导航路径区域 -->
       <div class="conPoin">
-        <span v-if="categoryView.category1Name">{{ categoryView.category1Name }}</span>
-        <span v-if="categoryView.category2Name">{{ categoryView.category2Name }}</span>
-        <span v-if="categoryView.category3Name">{{ categoryView.category3Name }}</span>
+        <span>{{ categoryView.category1Name }}</span>
+        <span>{{ categoryView.category2Name }}</span>
+        <span>{{ categoryView.category3Name }}</span>
       </div>
       <!-- 主要内容区域 -->
       <div class="mainCon">
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom :imageList="skuImageList" :defaultImg="defaultImg" />
+          <Zoom :imageList="skuImageList" />
           <!-- 小图列表 -->
-          <ImageList :imageList="skuImageList" :defaultImg="defaultImg" />
+          <ImageList :imageList="skuImageList" />
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
           <div class="goodsDetail">
             <h3 class="InfoName">{{ skuInfo.skuName }}</h3>
-            <p class="news">推荐选择下方[移动优惠购],手机套餐齐搞定,不用换号,每月还有花费返</p>
+            <p class="news">{{ skuInfo.skuDesc }}</p>
             <div class="priceArea">
               <div class="priceArea1">
                 <div class="title">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</div>
@@ -67,23 +67,23 @@
                 <dt class="title">{{ attr.saleAttrName }}</dt>
                 <dd
                   changepirce="0"
-                  class="active"
                   v-for="spuAttr in attr.spuSaleAttrValueList"
                   :key="spuAttr.id"
+                  :class="{ active: spuAttr.isChecked === '1' }"
+                  @click="chooseChecked(spuAttr, attr.spuSaleAttrValueList)"
                 >
                   {{ spuAttr.saleAttrValueName }}
                 </dd>
               </dl>
-
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt">
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input autocomplete="off" class="itxt" v-model="skuNum" />
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a href="javascript:" class="mins" @click="skuNum>1?skuNum--:(skuNum=1)">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addToCartHandler">加入购物车</a>
               </div>
             </div>
           </div>
@@ -344,33 +344,51 @@ export default {
     ImageList,
     Zoom
   },
+  data() {
+    return {
+      skuNum: 1
+    };
+  },
   methods: {
     getGoodsInfo() {
       this.$store.dispatch("getSkuInfoAsync", this.$route.params.skuId);
+    },
+    chooseChecked(spuAttr, attrList) {
+      attrList.forEach((item) => (item.isChecked = "0"));
+      spuAttr.isChecked = "1";
+    },
+    async addToCartHandler() {
+      try {
+        const skuId = this.$route.params.skuId;
+        const skuNum = this.skuNum;
+        const result = await this.$store.dispatch("addToCart", { skuId, skuNum });
+        if (result === "ok") {
+          alert("添加购物车成功！即将跳转！");
+          sessionStorage.setItem("SKUINFO_KEY", JSON.stringify(this.skuInfo));
+          await this.$router.push(`/addCartSuccess?skuNum=${skuNum}`);
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
     }
   },
   computed: {
     ...mapGetters([
       "spuSaleAttrList",
       "skuInfo",
-      "skuImageList",
+      "categoryView",
       "skuAttrValueList",
       "skuSaleAttrValueList"
     ]),
-    ...mapState({
-      skuGoodsInfo: (state) => state.detail.skuInfo
-    }),
-    categoryView() {
-      return this.skuGoodsInfo.categoryView;
-    },
-    defaultImg() {
-      return this.skuGoodsInfo.skuDefaultImg;
+    skuImageList() {
+      return this.skuInfo.skuImageList || [];
     }
   },
   mounted() {
     this.getGoodsInfo();
   }
-};
+}
+;
 </script>
 
 <style lang="less" scoped>
