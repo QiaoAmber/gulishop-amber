@@ -12,7 +12,6 @@
               <a href="##" class="current">账户登录</a>
             </li>
           </ul>
-
           <div class="content">
             <form action="##">
               <div class="input-text clearFix">
@@ -42,7 +41,6 @@
                 登&nbsp;&nbsp;录
               </button>
             </form>
-
             <div class="call clearFix">
               <ul>
                 <li><img src="./images/qq.png" alt="" /></li>
@@ -51,7 +49,8 @@
                 <li><img src="./images/weixin.png" alt="" /></li>
               </ul>
               <router-link class="register" to="/register"
-                >立即注册</router-link
+              >立即注册
+              </router-link
               >
             </div>
           </div>
@@ -79,10 +78,19 @@
 <script>
 export default {
   name: "Login",
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (vm.$store.state.user.userInfo.name) {
+        next("/");
+      } else {
+        next();
+      }
+    });
+  },
   data() {
     return {
       phone: "",
-      password: "",
+      password: ""
     };
   },
   methods: {
@@ -92,10 +100,11 @@ export default {
         try {
           const result = await this.$store.dispatch("postLoginAsync", {
             phone,
-            password,
+            password
           });
           if (result === "ok") {
-            this.$router.push("/");
+            let redirect = this.$route.query.redirect;
+            this.$router.push(redirect || "/");
           } else {
             alert("登录失败");
           }
@@ -103,8 +112,8 @@ export default {
           alert("登录失败");
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

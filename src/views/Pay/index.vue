@@ -97,7 +97,8 @@ export default {
   name: "Pay",
   data() {
     return {
-      payInfo: {}
+      payInfo: {},
+      payStatus: 0
     };
   },
   methods: {
@@ -109,14 +110,45 @@ export default {
       }
     },
     async payHandler() {
-      const imgUrl = await QRCode.toDataURL(this.payInfo.codeUrl);
-      this.$alert(`<img src="${imgUrl}">`, "请用微信支付", {
-        dangerouslyUseHTMLString: true,
-        showCancelButton: true,
-        cancelButtonText: "支付遇到问题",
-        confirmButtonText: "已完成订单支付",
-        center: true
-      });
+      try {
+        const imgUrl = await QRCode.toDataURL(this.payInfo.codeUrl);
+        this.$alert(`<img src="${imgUrl}">`, "请用微信支付", {
+          dangerouslyUseHTMLString: true,
+          showCancelButton: true,
+          cancelButtonText: "支付遇到问题",
+          confirmButtonText: "已完成订单支付",
+          center: true,
+          beforeClose: (action, instance, done) =>{
+            if (action === "confirm") {
+              clearInterval(this.timer);
+              this.timer = null;
+              done();
+              this.$router.push("/paySuccess");
+            } else if (action === "cancel") {
+              this.$message.error("请联系客服！");
+              clearInterval(this.timer);
+              this.timer = null;
+            }
+          }
+        })
+          .then()
+          .catch((error) => {
+          });
+        if (!this.timer) {
+          this.timer = setInterval(async () => {
+            const result = await this.$API.getPayStatus(this.payInfo.orderId);
+            if (result.code === 200) {
+              this.payStatus = 200;
+              clearInterval(this.timer);
+              this.timer = null;
+              this.$msgbox.close();
+              this.$router.push("/paySuccess");
+            }
+          }, 3000);
+        }
+      } catch (err) {
+        alert("获取二维码失败");
+      }
     }
   },
   created() {

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Image,Message, MessageBox } from "element-ui";
+import { Image, Message, MessageBox, Pagination as elPagination } from "element-ui";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -10,6 +10,7 @@ import * as API from "@/api";
 import "@/mock/mock";
 
 Vue.use(Image);
+Vue.use(elPagination)
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$confirm = MessageBox.confirm;

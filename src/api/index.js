@@ -53,7 +53,11 @@ export const getCartIsChecked = (skuId, isChecked) => {
 };
 
 export const deleteCartItem = (skuId) => {
-  return request.delete(`/cart/deleteCart/${skuId}`);
+  return request.delete(`/cart/deleteCart/${skuId}`, {
+    data: {
+      showProgress: true
+    }
+  });
 };
 
 export const getSendCode = (phone) => {
@@ -84,6 +88,16 @@ export const postSubmitOrder = (tradeNo, tradeInfo) => {
 };
 
 ///payment/weixin/createNative/{orderId}
-export const getPayment = (orderId)=>{
+export const getPayment = (orderId) => {
   return request.get(`/payment/weixin/createNative/${orderId}`);
-}
+};
+
+///payment/weixin/queryPayStatus/{orderId}
+export const getPayStatus = (orderId) => {
+  return request.get(`/payment/weixin/queryPayStatus/${orderId}`);
+};
+
+///order/auth/{page}/{limit}
+export const getOrderInfo = (page, limit) => {
+  return request.get(`/order/auth/${page}/${limit}`);
+};

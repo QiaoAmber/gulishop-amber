@@ -5,7 +5,7 @@ import store from "@/store";
 
 const request = axios.create({
   baseURL: "http://sph-h5-api.atguigu.cn/api",
-  timeout: 20000,
+  timeout: 20000
 });
 
 request.interceptors.request.use(
@@ -18,7 +18,7 @@ request.interceptors.request.use(
     if (token) {
       config.headers.token = token;
     }
-    NProgress.start();
+    if(config.data&&config.data.showProgress) NProgress.start();
     return config;
   },
   (err) => {
@@ -28,8 +28,10 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   (res) => {
-    NProgress.done();
-    return res.data;
+    if (res.status >= 200 && res.status < 300) {
+      NProgress.done();
+      return res.data;
+    }
   },
   (error) => {
     if (error && error.response) {
