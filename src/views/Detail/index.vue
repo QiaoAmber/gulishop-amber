@@ -27,7 +27,9 @@
             <p class="news">{{ skuInfo.skuDesc }}</p>
             <div class="priceArea">
               <div class="priceArea1">
-                <div class="title">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</div>
+                <div class="title">
+                  价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格
+                </div>
                 <div class="price">
                   <i>¥</i>
                   <em>{{ skuInfo.price }}</em>
@@ -44,14 +46,20 @@
                 </div>
                 <div class="fixWidth">
                   <i class="red-bg">加价购</i>
-                  <em class="t-gray">满999.00另加20.00元，或满1999.00另加30.00元，或满2999.00另加40.00元，即可在购物车换购热销商品</em>
+                  <em class="t-gray"
+                    >满999.00另加20.00元，或满1999.00另加30.00元，或满2999.00另加40.00元，即可在购物车换购热销商品</em
+                  >
                 </div>
               </div>
             </div>
             <div class="support">
               <div class="supportArea">
-                <div class="title">支&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;持</div>
-                <div class="fixWidth">以旧换新，闲置手机回收 4G套餐超值抢 礼品购</div>
+                <div class="title">
+                  支&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;持
+                </div>
+                <div class="fixWidth">
+                  以旧换新，闲置手机回收 4G套餐超值抢 礼品购
+                </div>
               </div>
               <div class="supportArea">
                 <div class="title">配 送 至</div>
@@ -80,7 +88,12 @@
               <div class="controls">
                 <input autocomplete="off" class="itxt" v-model="skuNum" />
                 <a href="javascript:" class="plus" @click="skuNum++">+</a>
-                <a href="javascript:" class="mins" @click="skuNum>1?skuNum--:(skuNum=1)">-</a>
+                <a
+                  href="javascript:"
+                  class="mins"
+                  @click="skuNum > 1 ? skuNum-- : (skuNum = 1)"
+                  >-</a
+                >
               </div>
               <div class="add">
                 <a href="javascript:" @click="addToCartHandler">加入购物车</a>
@@ -223,7 +236,7 @@
                 <img src="./images/dp01.png" />
                 <p>Feless费勒斯VR</p>
                 <label>
-                  <input type="checkbox" value="39">
+                  <input type="checkbox" value="39" />
                   <span>39</span>
                 </label>
               </li>
@@ -231,7 +244,7 @@
                 <img src="./images/dp02.png" />
                 <p>Feless费勒斯VR</p>
                 <label>
-                  <input type="checkbox" value="50">
+                  <input type="checkbox" value="50" />
                   <span>50</span>
                 </label>
               </li>
@@ -239,7 +252,7 @@
                 <img src="./images/dp03.png" />
                 <p>Feless费勒斯VR</p>
                 <label>
-                  <input type="checkbox" value="59">
+                  <input type="checkbox" value="59" />
                   <span>59</span>
                 </label>
               </li>
@@ -247,16 +260,14 @@
                 <img src="./images/dp04.png" />
                 <p>Feless费勒斯VR</p>
                 <label>
-                  <input type="checkbox" value="99">
+                  <input type="checkbox" value="99" />
                   <span>99</span>
                 </label>
               </li>
             </ul>
             <div class="result">
               <div class="num">已选购0件商品</div>
-              <div class="price-tit">
-                套餐价
-              </div>
+              <div class="price-tit">套餐价</div>
               <div class="price">￥5299</div>
               <button class="addshopcar">加入购物车</button>
             </div>
@@ -265,29 +276,19 @@
         <div class="intro">
           <ul class="tab-wraped">
             <li class="active">
-              <a href="###">
-                商品介绍
-              </a>
+              <a href="###"> 商品介绍 </a>
             </li>
             <li>
-              <a href="###">
-                规格与包装
-              </a>
+              <a href="###"> 规格与包装 </a>
             </li>
             <li>
-              <a href="###">
-                售后保障
-              </a>
+              <a href="###"> 售后保障 </a>
             </li>
             <li>
-              <a href="###">
-                商品评价
-              </a>
+              <a href="###"> 商品评价 </a>
             </li>
             <li>
-              <a href="###">
-                手机社区
-              </a>
+              <a href="###"> 手机社区 </a>
             </li>
           </ul>
           <div class="tab-content">
@@ -342,11 +343,11 @@ export default {
   name: "Detail",
   components: {
     ImageList,
-    Zoom
+    Zoom,
   },
   data() {
     return {
-      skuNum: 1
+      skuNum: 1,
     };
   },
   methods: {
@@ -361,7 +362,10 @@ export default {
       try {
         const skuId = this.$route.params.skuId;
         const skuNum = this.skuNum;
-        const result = await this.$store.dispatch("addToCart", { skuId, skuNum });
+        const result = await this.$store.dispatch("addToCart", {
+          skuId,
+          skuNum,
+        });
         if (result === "ok") {
           alert("添加购物车成功！即将跳转！");
           sessionStorage.setItem("SKUINFO_KEY", JSON.stringify(this.skuInfo));
@@ -370,7 +374,7 @@ export default {
       } catch (err) {
         console.log(err.message);
       }
-    }
+    },
   },
   computed: {
     ...mapGetters([
@@ -378,17 +382,16 @@ export default {
       "skuInfo",
       "categoryView",
       "skuAttrValueList",
-      "skuSaleAttrValueList"
+      "skuSaleAttrValueList",
     ]),
     skuImageList() {
       return this.skuInfo.skuImageList || [];
-    }
+    },
   },
   mounted() {
     this.getGoodsInfo();
-  }
-}
-;
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -495,8 +498,6 @@ export default {
               }
             }
           }
-
-
         }
 
         .support {
@@ -805,7 +806,7 @@ export default {
             }
 
             .price {
-              color: #B1191A;
+              color: #b1191a;
               font-size: 16px;
               margin-bottom: 10px;
             }
@@ -882,7 +883,6 @@ export default {
               }
             }
           }
-
         }
       }
     }

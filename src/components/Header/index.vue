@@ -32,7 +32,7 @@
     <div class="bottom">
       <h1 class="logoArea">
         <router-link class="logo" title="尚品汇" to="/">
-          <img src="./images/logo.png" alt="">
+          <img src="./images/logo.png" alt="" />
         </router-link>
       </h1>
       <div class="searchArea">
@@ -61,7 +61,7 @@ export default {
   name: "Header",
   data() {
     return {
-      keyword: ""
+      keyword: "",
     };
   },
   methods: {
@@ -81,7 +81,7 @@ export default {
       } catch (err) {
         alert("退出登录失败");
       }
-    }
+    },
   },
   mounted() {
     this.clearContent();
@@ -92,7 +92,7 @@ export default {
     // this.$bus.$on('deleteKeyword',function(){
     //   console.log(this);
     // })
-  }
+  },
 };
 </script>
 
@@ -133,9 +133,7 @@ export default {
             border-left: 1px solid #b3aeae;
           }
         }
-
       }
-
     }
   }
 

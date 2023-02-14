@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     ...mapState({
-      floorList: (state) => state.home.floorList
+      floorList: (state) => state.home.floorList,
     }),
   },
   methods: {
@@ -41,9 +41,8 @@ export default {
   },
   mounted() {
     this.getFloorList();
-  }
+  },
 };
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

@@ -3,7 +3,7 @@ import { mockBanner, mockFloor, reqCategoryList } from "@/api";
 const state = {
   categoryList: [],
   bannerList: [],
-  floorList:[]
+  floorList: [],
 };
 const mutations = {
   RECIEVE_CATEGORY_LIST(state, categoryList) {

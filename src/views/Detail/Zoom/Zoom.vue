@@ -15,13 +15,13 @@ export default {
   props: ["imageList"],
   data() {
     return {
-      defaultIndex: 0
+      defaultIndex: 0,
     };
   },
   computed: {
     defaultImg() {
       return this.imageList[this.defaultIndex] || {};
-    }
+    },
   },
   methods: {
     eventHandler(e) {
@@ -46,13 +46,13 @@ export default {
       mask.style.top = top + "px";
       bigImg.style.left = -2 * left + "px";
       bigImg.style.top = -2 * top + "px";
-    }
+    },
   },
   mounted() {
     this.$bus.$on("changeIndex", (index) => {
       this.defaultIndex = index;
     });
-  }
+  },
 };
 </script>
 

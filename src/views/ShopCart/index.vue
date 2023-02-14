@@ -11,41 +11,75 @@
         <div class="cart-th6">操作</div>
       </div>
       <div class="cart-body">
-        <ul class="cart-list" v-for="(cart,index) in cartInfoList" :key="index">
+        <ul
+          class="cart-list"
+          v-for="(cart, index) in cartInfoList"
+          :key="index"
+        >
           <li v-for="item in cart.cartInfoList" :key="item.id">
             <ul class="shopInfo">
               <li class="cart-list-con1">
-                <input type="checkbox" name="chk_list" :checked="item.isChecked===1" @click="changeCheck(item)">
+                <input
+                  type="checkbox"
+                  name="chk_list"
+                  :checked="item.isChecked === 1"
+                  @click="changeCheck(item)"
+                />
               </li>
               <li class="cart-list-con2">
-                <img :src="item.imgUrl">
+                <img :src="item.imgUrl" />
                 <div class="item-msg">{{ item.skuName }}</div>
               </li>
               <li class="cart-list-con4">
                 <span class="price">{{ item.skuPrice }}</span>
               </li>
               <li class="cart-list-con5">
-                <a href="javascript:void(0)" class="mins" @click="changeSkuNum(item,-1)">-</a>
-                <input autocomplete="off" type="text" :value="item.skuNum" minnum="1" class="itxt">
-                <a href="javascript:void(0)" class="plus" @click="changeSkuNum(item,+1)">+</a>
+                <a
+                  href="javascript:void(0)"
+                  class="mins"
+                  @click="changeSkuNum(item, -1)"
+                  >-</a
+                >
+                <input
+                  autocomplete="off"
+                  type="text"
+                  :value="item.skuNum"
+                  minnum="1"
+                  class="itxt"
+                />
+                <a
+                  href="javascript:void(0)"
+                  class="plus"
+                  @click="changeSkuNum(item, +1)"
+                  >+</a
+                >
               </li>
               <li class="cart-list-con6">
                 <span class="sum">{{ item.skuNum * item.skuPrice }}</span>
               </li>
               <li class="cart-list-con7">
-                <a href="javascript:void(0)" class="sindelet" @click="deleteItem(item.skuId)">删除</a>
-                <br>
+                <a
+                  href="javascript:void(0)"
+                  class="sindelet"
+                  @click="deleteItem(item.skuId)"
+                  >删除</a
+                >
+                <br />
                 <a href="#none">移到收藏</a>
               </li>
             </ul>
           </li>
         </ul>
-
       </div>
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllCheck" @change="changeAllCheck">
+        <input
+          class="chooseAll"
+          type="checkbox"
+          :checked="isAllCheck"
+          @change="changeAllCheck"
+        />
         <span>全选</span>
       </div>
       <div class="option">
@@ -54,15 +88,16 @@
         <a href="#none">清除下柜商品</a>
       </div>
       <div class="money-box">
-        <div class="chosed">已选择
-          <span>{{ totalNum }}</span>件商品
+        <div class="chosed">
+          已选择 <span>{{ totalNum }}</span
+          >件商品
         </div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
           <i class="summoney">{{ totalSum }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <router-link class="sum-btn" to="/trade">结算</router-link>
         </div>
       </div>
     </div>
@@ -80,12 +115,18 @@ export default {
   },
   computed: {
     ...mapState({
-      cartInfoList: (state) => state.cart.cartInfoList
+      cartInfoList: (state) => state.cart.cartInfoList,
     }),
-    ...mapGetters(["totalSum", "totalNum", "isAllCheck"])
+    ...mapGetters(["totalSum", "totalNum", "isAllCheck"]),
   },
   methods: {
-    ...mapActions(["getCartIsCheckedAsync", "addToCart", "updateAllCheck", "deleteCartItemAsync", "deleteCartIsChecked"]),
+    ...mapActions([
+      "getCartIsCheckedAsync",
+      "addToCart",
+      "updateAllCheck",
+      "deleteCartItemAsync",
+      "deleteCartIsChecked",
+    ]),
     getCartInfo() {
       this.$store.dispatch("getCartInfoAsync");
     },
@@ -140,10 +181,9 @@ export default {
         console.log(err);
       }
     },
-  }
+  },
 };
 </script>
-
 
 <style lang="less" scoped>
 .cart {
@@ -339,9 +379,11 @@ export default {
                         height: 25px;
                         line-height: 25px;
                         background-color: #e74649;
-                        background-image: linear-gradient(0deg,
-                        #e74649 0,
-                        #df3134);
+                        background-image: linear-gradient(
+                          0deg,
+                          #e74649 0,
+                          #df3134
+                        );
                         border-radius: 3px;
                         color: #fff;
                         font-size: 12px;
@@ -361,9 +403,11 @@ export default {
                         height: 23px;
                         line-height: 23px;
                         background-color: #f2f2f2;
-                        background-image: linear-gradient(0deg,
-                        #f2f2f2 0,
-                        #f7f7f7);
+                        background-image: linear-gradient(
+                          0deg,
+                          #f2f2f2 0,
+                          #f7f7f7
+                        );
                         border-radius: 3px;
                         color: #323333;
                         font-size: 12px;
@@ -559,4 +603,3 @@ export default {
   }
 }
 </style>
-

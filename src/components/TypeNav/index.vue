@@ -1,7 +1,11 @@
 <template>
   <div class="type-nav">
     <div class="container">
-      <div class="nav-left" @mouseleave="leaveHandler" @mouseenter="isShow=true">
+      <div
+        class="nav-left"
+        @mouseleave="leaveHandler"
+        @mouseenter="isShow = true"
+      >
         <h2 class="all">全部商品分类</h2>
         <div class="sort" @click="clickHandler" v-show="isShow">
           <div class="all-sort-list2">
@@ -17,7 +21,7 @@
                   href="javascript:;"
                   :data-categoryName="c1.categoryName"
                   :data-category1Id="c1.categoryId"
-                >{{ c1.categoryName }}</a
+                  >{{ c1.categoryName }}</a
                 >
               </h3>
               <div class="item-list clearfix">
@@ -32,7 +36,7 @@
                         href="javascript:;"
                         :data-categoryName="c2.categoryName"
                         :data-category2Id="c2.categoryId"
-                      >{{ c2.categoryName }}</a
+                        >{{ c2.categoryName }}</a
                       >
                     </dt>
                     <dd>
@@ -41,7 +45,7 @@
                           href="javascript:;"
                           :data-categoryName="c3.categoryName"
                           :data-category3Id="c3.categoryId"
-                        >{{ c3.categoryName }}</a
+                          >{{ c3.categoryName }}</a
                         >
                       </em>
                     </dd>
@@ -75,12 +79,12 @@ export default {
   data() {
     return {
       currentIndex: -1,
-      isShow: true
+      isShow: true,
     };
   },
 
   methods: {
-    moveIn: debounce(function(index) {
+    moveIn: debounce(function (index) {
       this.currentIndex = index;
     }, 200),
     clickHandler(e) {
@@ -98,30 +102,29 @@ export default {
         this.$router.push({
           name: "search",
           params: this.$route.params,
-          query
+          query,
         });
       }
     },
     leaveHandler() {
       this.currentIndex = -1;
       if (this.$route.name !== "home") this.isShow = false;
-    }
+    },
   },
   computed: {
     ...mapState({
-      categoryList: (state) => state.home.categoryList
-    })
+      categoryList: (state) => state.home.categoryList,
+    }),
   },
   mounted() {
     if (this.$route.name !== "home") this.isShow = false;
-  }
+  },
   // methods: {
   //   // ...mapActions(["getCategoryList"])
   //   // getCategoryList() {
   //   //   this.$store.dispatch("getCategoryList");
   //   // }
   // },
-
 };
 </script>
 

@@ -1,7 +1,6 @@
 import request from "@/request";
 import mock from "@/request/mock";
 
-
 export const reqCategoryList = () => {
   return request.get("/product/getBaseCategoryList");
 };
@@ -75,3 +74,16 @@ export const postLogin = (userInfo) => {
 export const getLogout = () => {
   return request.get("/user/passport/logout");
 };
+
+export const getTradeInfo = () => {
+  return request.get("/order/auth/trade");
+};
+
+export const postSubmitOrder = (tradeNo, tradeInfo) => {
+  return request.post(`/order/auth/submitOrder?tradeNo=${tradeNo}`, tradeInfo);
+};
+
+///payment/weixin/createNative/{orderId}
+export const getPayment = (orderId)=>{
+  return request.get(`/payment/weixin/createNative/${orderId}`);
+}

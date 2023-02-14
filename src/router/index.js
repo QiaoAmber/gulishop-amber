@@ -7,6 +7,8 @@ import Search from "@/views/Search";
 import Detail from "@/views/Detail";
 import ShopCart from "@/views/ShopCart";
 import AddCartSuccess from "@/views/AddCartSuccess";
+import Trade from "@/views/Trade";
+import Pay from "@/views/Pay";
 
 Vue.use(VueRouter);
 
@@ -51,6 +53,16 @@ const routes = [
     name: "addCartSuccess",
     path: "/addCartSuccess",
     component: AddCartSuccess
+  },
+  {
+    name: "trade",
+    path: "/trade",
+    component: Trade
+  },
+  {
+    name: "pay",
+    path: "/pay",
+    component: Pay,
   }
 ];
 
@@ -81,6 +93,5 @@ VueRouter.prototype.replace = function(location, resolve, reject) {
     return OriginReplace.call(this, location, resolve, reject);
   }
 };
-
 
 export default router;

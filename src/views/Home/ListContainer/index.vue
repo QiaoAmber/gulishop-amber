@@ -86,13 +86,13 @@ export default {
   computed: {
     ...mapState({
       bannerList: (state) => state.home.bannerList,
-      floorList: (state) => state.home.floorList
-    })
+      floorList: (state) => state.home.floorList,
+    }),
   },
   mounted() {
     this.$store.dispatch("getBannerList");
     this.$store.dispatch("getFloorList");
-  }
+  },
 };
 </script>
 

@@ -12,18 +12,16 @@ import Footer from "@/components/Footer";
 export default {
   components: {
     Header,
-    Footer
+    Footer,
   },
   methods: {
     getCategoryList() {
       this.$store.dispatch("getCategoryList");
-    }
+    },
   },
   mounted() {
     this.getCategoryList();
-  }
+  },
 };
 </script>
-<style lang="less">
-
-</style>
+<style lang="less"></style>

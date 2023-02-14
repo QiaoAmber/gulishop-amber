@@ -29,21 +29,18 @@ export default {
           new Swiper(this.$refs.mySwiper, {
             loop: true,
             pagination: {
-              el: ".swiper-pagination"
+              el: ".swiper-pagination",
             },
             navigation: {
               nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev"
-            }
+              prevEl: ".swiper-button-prev",
+            },
           });
         });
-      }
-    }
-  }
-
+      },
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

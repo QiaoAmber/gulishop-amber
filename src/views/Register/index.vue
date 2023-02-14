@@ -2,8 +2,10 @@
   <div class="register-container">
     <!-- 注册内容 -->
     <div class="register">
-      <h3>注册新用户
-        <span class="go">我有账号，去 <router-link to="/login">登陆</router-link>
+      <h3>
+        注册新用户
+        <span class="go"
+          >我有账号，去 <router-link to="/login">登陆</router-link>
         </span>
       </h3>
       <div class="content">
@@ -13,22 +15,28 @@
       </div>
       <div class="content">
         <label>验证码:</label>
-        <input type="text" placeholder="请输入验证码" v-model="code">
-        <button :disabled="num>0" @click="sendCodeHandler">发送{{ num > 0 ? `还需要${num}秒` : "成功" }}</button>
+        <input type="text" placeholder="请输入验证码" v-model="code" />
+        <button :disabled="num > 0" @click="sendCodeHandler">
+          发送{{ num > 0 ? `还需要${num}秒` : "成功" }}
+        </button>
         <span class="error-msg" v-if="!code">错误提示信息</span>
       </div>
       <div class="content">
         <label>登录密码:</label>
-        <input type="text" placeholder="请输入你的登录密码" v-model="passport">
+        <input
+          type="text"
+          placeholder="请输入你的登录密码"
+          v-model="passport"
+        />
         <span class="error-msg" v-if="!passport">错误提示信息</span>
       </div>
       <div class="content">
         <label>确认密码:</label>
-        <input type="text" placeholder="请输入确认密码" v-model="passport2">
+        <input type="text" placeholder="请输入确认密码" v-model="passport2" />
         <span class="error-msg" v-if="!passport2">错误提示信息</span>
       </div>
       <div class="controls">
-        <input name="m1" type="checkbox" v-model="isChecked">
+        <input name="m1" type="checkbox" v-model="isChecked" />
         <span>同意协议并注册《尚品汇用户协议》</span>
         <span class="error-msg" v-if="!isChecked">错误提示信息</span>
       </div>
@@ -50,8 +58,7 @@
         <li>尚品汇社区</li>
       </ul>
       <div class="address">地址：北京市昌平区宏福科技园综合楼6层</div>
-      <div class="beian">京ICP备19006430号
-      </div>
+      <div class="beian">京ICP备19006430号</div>
     </div>
   </div>
 </template>
@@ -68,7 +75,7 @@ export default {
       passport: "",
       passport2: "",
       num: 0,
-      isChecked: true
+      isChecked: true,
     };
   },
   methods: {
@@ -103,10 +110,14 @@ export default {
       const { phone, code, password, password2 } = this;
       if (phone && code && password && password === password2) {
         try {
-          const result = await this.$store.dispatch("postRegisterAsync", { phone, code, password });
+          const result = await this.$store.dispatch("postRegisterAsync", {
+            phone,
+            code,
+            password,
+          });
           if (result === "ok") {
             alert("注册成功");
-            this.$router.push('/login');
+            this.$router.push("/login");
           } else {
             alert("失败");
           }
@@ -114,8 +125,8 @@ export default {
           alert("失败");
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

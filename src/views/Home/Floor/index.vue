@@ -9,7 +9,7 @@
               :class="{ active: changeIndex === index }"
               v-for="(nav, index) in floor.navList"
               :key="index"
-              @click="changeIndex=index"
+              @click="changeIndex = index"
             >
               <a :href="nav.url" data-toggle="tab">{{ nav.text }}</a>
             </li>
@@ -62,9 +62,9 @@ export default {
   props: ["floor"],
   data() {
     return {
-      changeIndex: -1
+      changeIndex: -1,
     };
-  }
+  },
 };
 </script>
 

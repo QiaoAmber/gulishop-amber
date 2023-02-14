@@ -35,8 +35,8 @@ import { mapGetters } from "vuex";
 export default {
   name: "SearchSelector",
   computed: {
-    ...mapGetters(["trademarkList", "attrsList"])
-  }
+    ...mapGetters(["trademarkList", "attrsList"]),
+  },
 };
 </script>
 

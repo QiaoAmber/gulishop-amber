@@ -24,13 +24,13 @@ export default {
   props: ["imageList"],
   data() {
     return {
-      defaultIndex: 0
+      defaultIndex: 0,
     };
   },
   computed: {
     defaultImg() {
       return this.imageList[this.defaultIndex].imgUrl;
-    }
+    },
   },
   watch: {
     imageList: {
@@ -42,13 +42,13 @@ export default {
             slidesPerGroup: 5,
             navigation: {
               nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev"
-            }
+              prevEl: ".swiper-button-prev",
+            },
           });
         });
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

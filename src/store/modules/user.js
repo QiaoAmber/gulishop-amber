@@ -3,7 +3,7 @@ import { postRegister, postLogin, getLogout } from "@/api";
 
 const state = {
   userTempId: getUserTempId(),
-  userInfo: JSON.parse(localStorage.getItem("USERINFO_KEY")) || {}
+  userInfo: JSON.parse(localStorage.getItem("USERINFO_KEY")) || {},
 };
 const getters = {};
 const mutations = {
@@ -12,7 +12,7 @@ const mutations = {
   },
   REMOVE_USER_INFO(state) {
     state.userInfo = {};
-  }
+  },
 };
 const actions = {
   async postRegisterAsync(userInfo) {
@@ -35,11 +35,11 @@ const actions = {
       localStorage.removeItem("USERINFO_KEY");
       return "ok";
     } else return Promise.reject(new Error("fail"));
-  }
+  },
 };
 export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };

@@ -2,10 +2,18 @@
   <div class="fr page">
     <div class="sui-pagination clearfix">
       <ul>
-        <li class="prev" @click="$emit('changePage',pageNo-1)" :class="{ disabled: pageNo === 1 }">
+        <li
+          class="prev"
+          @click="$emit('changePage', pageNo - 1)"
+          :class="{ disabled: pageNo === 1 }"
+        >
           <a href="javascript:;">«上一页</a>
         </li>
-        <li :class="{ active: pageNo === 1 }" v-if="page.start !== 1" @click="$emit('changePage',1)">
+        <li
+          :class="{ active: pageNo === 1 }"
+          v-if="page.start !== 1"
+          @click="$emit('changePage', 1)"
+        >
           <a href="javascript:;">1</a>
         </li>
         <li class="dotted" v-if="page.start > 2">
@@ -22,12 +30,20 @@
         </li>
         <li class="dotted" v-if="page.end < totalPage"><span>...</span></li>
         <li @click="$emit('changePage', totalPage)">
-          <a href="javascript:;" v-if="page.end<totalPage" :class="{active:totalPage === pageNo}">{{ totalPage }}</a>
+          <a
+            href="javascript:;"
+            v-if="page.end < totalPage"
+            :class="{ active: totalPage === pageNo }"
+            >{{ totalPage }}</a
+          >
         </li>
-        <li class="next" @click="$emit('changePage', pageNo + 1)" :class="{ disabled: pageNo === totalPage }">
+        <li
+          class="next"
+          @click="$emit('changePage', pageNo + 1)"
+          :class="{ disabled: pageNo === totalPage }"
+        >
           <a href="javascript:;">下一页»</a>
         </li>
-
       </ul>
       <div>
         <span>共{{ totalPage }}页&nbsp;</span>
@@ -42,7 +58,7 @@ export default {
   props: ["pageNo", "pageSize", "total", "totalPage", "continuePage"],
   data() {
     return {
-      isActive: this.pageNo === 1 ? "none" : "auto"
+      isActive: this.pageNo === 1 ? "none" : "auto",
     };
   },
   computed: {
@@ -67,8 +83,8 @@ export default {
       }
 
       return { start, end };
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -116,7 +132,6 @@ export default {
         }
 
         &.prev {
-
           a {
             background-color: #fafafa;
           }

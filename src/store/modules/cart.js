@@ -1,26 +1,49 @@
-import { getCartInfo, postAddCart, getCartIsChecked, deleteCartItem } from "@/api";
+import {
+  getCartInfo,
+  postAddCart,
+  getCartIsChecked,
+  deleteCartItem,
+} from "@/api";
 
 const state = {
-  cartInfoList: []
+  cartInfoList: [],
 };
 const getters = {
   totalSum(state) {
-    return state.cartInfoList.reduce((prev, item) => (
-      prev + item.cartInfoList.reduce((initial, next) => (initial + (next.isChecked === 1 ? next.skuNum * next.skuPrice : 0)), 0)), 0);
+    return state.cartInfoList.reduce(
+      (prev, item) =>
+        prev +
+        item.cartInfoList.reduce(
+          (initial, next) =>
+            initial + (next.isChecked === 1 ? next.skuNum * next.skuPrice : 0),
+          0
+        ),
+      0
+    );
   },
   totalNum(state) {
-    return state.cartInfoList.reduce((prev, item) => (
-      prev + item.cartInfoList.reduce((initial, next) => (initial + (next.isChecked === 1 ? next.skuNum : 0)), 0)
-    ), 0);
+    return state.cartInfoList.reduce(
+      (prev, item) =>
+        prev +
+        item.cartInfoList.reduce(
+          (initial, next) => initial + (next.isChecked === 1 ? next.skuNum : 0),
+          0
+        ),
+      0
+    );
   },
   isAllCheck(state) {
-    return state.cartInfoList.every(item => item.cartInfoList.every(box => box.isChecked === 1 && item.cartInfoList.length > 0));
-  }
+    return state.cartInfoList.every((item) =>
+      item.cartInfoList.every(
+        (box) => box.isChecked === 1 && item.cartInfoList.length > 0
+      )
+    );
+  },
 };
 const mutations = {
   RECEIVE_CART_INFO(state, cartInfo) {
     state.cartInfoList = cartInfo;
-  }
+  },
 };
 const actions = {
   async addToCart({ commit }, { skuId, skuNum }) {
@@ -53,7 +76,7 @@ const actions = {
         if (specialCart[q].isChecked !== isChecked) {
           const promise = await dispatch("getCartIsCheckedAsync", {
             skuId: specialCart[q].skuId,
-            isChecked
+            isChecked,
           });
           promises.push(promise);
         }
@@ -91,5 +114,5 @@ export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };

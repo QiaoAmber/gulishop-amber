@@ -7,17 +7,22 @@ const request = axios.create({
   timeout: 20000,
 });
 
-request.interceptors.request.use(config => {
+request.interceptors.request.use(
+  (config) => {
     NProgress.start();
     return config;
-}, err => {
+  },
+  (err) => {
     return Promise.reject(err);
-});
+  }
+);
 
-request.interceptors.response.use(res => {
+request.interceptors.response.use(
+  (res) => {
     NProgress.done();
     return res.data;
-}, error => {
+  },
+  (error) => {
     if (error && error.response) {
       switch (error.response.status) {
         case 400:
@@ -53,12 +58,12 @@ request.interceptors.response.use(res => {
         case 505:
           error.message = "HTTP版本不受支持";
           break;
-    }
+      }
       // 以后项目中可以对error.message进行统一管理操作
     }
     NProgress.done();
     return Promise.reject(error);
-});
-
+  }
+);
 
 export default request;

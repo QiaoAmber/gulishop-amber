@@ -1,11 +1,11 @@
 import { getSkuInfo } from "@/api";
 
 const state = {
-  skuInfo: {}
+  skuInfo: {},
 };
 const getters = {
-  categoryView(state){
-    return state.skuInfo.categoryView || {}
+  categoryView(state) {
+    return state.skuInfo.categoryView || {};
   },
   spuSaleAttrList(state) {
     return state.skuInfo.spuSaleAttrList || [];
@@ -32,5 +32,5 @@ export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };

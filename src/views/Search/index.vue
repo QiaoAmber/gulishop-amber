@@ -37,7 +37,10 @@
         </div>
 
         <!-- 搜索器 -->
-        <SearchSelector @addTrademark="addTrademark" @addAttrSearch="addAttrSearch" />
+        <SearchSelector
+          @addTrademark="addTrademark"
+          @addAttrSearch="addAttrSearch"
+        />
 
         <!--商品展示区-->
         <div class="details clearfix">
@@ -47,15 +50,28 @@
               <ul class="sui-nav">
                 <li :class="{ active: orderType === 1 }">
                   <a href="javascript:;" @click="changeOrder(1)"
-                  >综合
-                    <i class="iconfont icon-arrow-up-bold" v-if="orderArrow==='desc'&&orderType===1"></i>
-                    <i class="iconfont icon-arrowdown" v-if="orderArrow==='asc'&&orderType===1"></i>
+                    >综合
+                    <i
+                      class="iconfont icon-arrow-up-bold"
+                      v-if="orderArrow === 'desc' && orderType === 1"
+                    ></i>
+                    <i
+                      class="iconfont icon-arrowdown"
+                      v-if="orderArrow === 'asc' && orderType === 1"
+                    ></i>
                   </a>
                 </li>
-                <li :class="{active:orderType===2}">
-                  <a href="javascript:;" @click="changeOrder(2)">价格
-                    <i class=" iconfont icon-arrow-up-bold" v-if="orderArrow==='desc'&&orderType===2"></i>
-                    <i class="iconfont icon-arrowdown" v-if="orderArrow==='asc'&&orderType===2"></i>
+                <li :class="{ active: orderType === 2 }">
+                  <a href="javascript:;" @click="changeOrder(2)"
+                    >价格
+                    <i
+                      class="iconfont icon-arrow-up-bold"
+                      v-if="orderArrow === 'desc' && orderType === 2"
+                    ></i>
+                    <i
+                      class="iconfont icon-arrowdown"
+                      v-if="orderArrow === 'asc' && orderType === 2"
+                    ></i>
                   </a>
                 </li>
               </ul>
@@ -90,9 +106,11 @@
                       href="success-cart.html"
                       target="_blank"
                       class="sui-btn btn-bordered btn-danger"
-                    >加入购物车</a
+                      >加入购物车</a
                     >
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
+                    <a href="javascript:void(0);" class="sui-btn btn-bordered"
+                      >收藏</a
+                    >
                   </div>
                 </div>
               </li>
@@ -100,7 +118,7 @@
           </div>
           <!-- 分页器 -->
           <Pagination
-            v-if="goodsInfoList.totalPages>0"
+            v-if="goodsInfoList.totalPages > 0"
             :pageNo="searchInfo.pageNo"
             :pageSize="searchInfo.pageSize"
             :total="goodsInfoList.total"
@@ -121,7 +139,7 @@ import SearchSelector from "./SearchSelector";
 export default {
   name: "Search",
   components: {
-    SearchSelector
+    SearchSelector,
   },
   data() {
     return {
@@ -134,8 +152,8 @@ export default {
         pageNo: 5,
         pageSize: 5,
         props: [],
-        trademark: ""
-      }
+        trademark: "",
+      },
     };
   },
   methods: {
@@ -175,7 +193,8 @@ export default {
       this.$store.dispatch("postGoodsInfoAsync", this.searchInfo);
     },
     paramsHandler() {
-      let { category1Id, category2Id, category3Id, categoryName } = this.$route.query;
+      let { category1Id, category2Id, category3Id, categoryName } =
+        this.$route.query;
       let { keyword } = this.$route.params;
       let searchParams = {
         ...this.searchInfo,
@@ -183,7 +202,7 @@ export default {
         category2Id,
         category3Id,
         categoryName,
-        keyword
+        keyword,
       };
       Object.keys(searchParams).forEach((key) => {
         if (searchParams[key] === "") {
@@ -206,7 +225,7 @@ export default {
       }
       this.searchInfo.pageNo = 1;
       this.postGoodsInfo();
-    }
+    },
   },
   watch: {
     $route: {
@@ -214,24 +233,24 @@ export default {
       handler() {
         this.paramsHandler();
         this.postGoodsInfo();
-      }
-    }
+      },
+    },
   },
   computed: {
     ...mapGetters(["attrsList", "trademarkList", "goodsList"]),
     ...mapState({
-      goodsInfoList: (state) => state.search.goodsInfoList
+      goodsInfoList: (state) => state.search.goodsInfoList,
     }),
     orderType() {
       return this.searchInfo.order.split(":")[0] / 1;
     },
     orderArrow() {
       return this.searchInfo.order.split(":")[1];
-    }
+    },
   },
   mounted() {
     this.postGoodsInfo();
-  }
+  },
 };
 </script>
 
@@ -477,8 +496,6 @@ export default {
           }
         }
       }
-
-
     }
   }
 }

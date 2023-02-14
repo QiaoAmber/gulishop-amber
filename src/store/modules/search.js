@@ -1,17 +1,17 @@
 import { postGoodsList } from "@/api";
 
 const state = {
-  goodsInfoList: {}
+  goodsInfoList: {},
 };
 const getters = {
-  attrsList(state){
-    return state.goodsInfoList.attrsList
+  attrsList(state) {
+    return state.goodsInfoList.attrsList;
   },
-  goodsList(state){
-    return state.goodsInfoList.goodsList
+  goodsList(state) {
+    return state.goodsInfoList.goodsList;
   },
-  trademarkList(state){
-    return state.goodsInfoList.trademarkList
+  trademarkList(state) {
+    return state.goodsInfoList.trademarkList;
   },
 };
 const mutations = {
@@ -22,12 +22,12 @@ const mutations = {
 const actions = {
   async postGoodsInfoAsync({ commit }, searchInfo) {
     const { data, code } = await postGoodsList(searchInfo);
-    if(code===200) commit("RECEIVE_GOODSINFO_LIST", data);
+    if (code === 200) commit("RECEIVE_GOODSINFO_LIST", data);
   },
 };
 export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };

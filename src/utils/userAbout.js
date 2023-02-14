@@ -6,5 +6,5 @@ export function getUserTempId() {
     userTempId = uuidv4();
     localStorage.setItem("USERTEMPID_KEY", userTempId);
   }
-  return userTempId
+  return userTempId;
 }
