@@ -1,49 +1,67 @@
 <template>
   <div class="register-container">
     <!-- 注册内容 -->
-    <div class="register">
-      <h3>
-        注册新用户
-        <span class="go"
+    <ValidationObserver v-slot="{invalid}">
+      <div class="register">
+        <h3>
+          注册新用户
+          <span class="go"
           >我有账号，去 <router-link to="/login">登陆</router-link>
         </span>
-      </h3>
-      <div class="content">
-        <label>手机号:</label>
-        <input type="text" placeholder="请输入你的手机号" v-model="phone" />
-        <span class="error-msg" v-if="!phone">错误提示信息</span>
+        </h3>
+        <div class="content">
+          <label>手机号:</label>
+          <validation-provider rules="required|phone" v-slot="{ errors }">
+            <input
+              type="text"
+              placeholder="请输入你的手机号"
+              v-model="phone"
+              name="phone"
+            />
+            <span class="error-msg">{{ errors[0] }}</span>
+          </validation-provider>
+        </div>
+        <div class="content">
+          <label>验证码:</label>
+          <validation-provider rules="required|code" v-slot="{ errors }">
+            <input type="text" placeholder="请输入验证码" v-model="code" name="code" />
+            <button :disabled="num > 0" @click="sendCodeHandler">
+              发送{{ num > 0 ? `还需要${num}秒` : "成功" }}
+            </button>
+            <span class="error-msg">{{ errors[0] }}</span>
+          </validation-provider>
+        </div>
+        <div class="content">
+          <label>登录密码:</label>
+          <validation-provider rules="required|password" v-slot="{ errors }">
+            <input
+              type="text"
+              placeholder="请输入你的登录密码"
+              v-model="passport"
+              name="passport"
+            />
+            <span class="error-msg">{{ errors[0] }}</span>
+          </validation-provider>
+        </div>
+        <div class="content">
+          <label>确认密码:</label>
+          <validation-provider rules="required|confirmed:password" v-slot="{ errors }">
+            <input type="text" placeholder="请输入确认密码" v-model="passport2" name="passport2" />
+            <span class="error-msg">{{ errors[0] }}</span>
+          </validation-provider>
+        </div>
+        <div class="controls">
+          <validation-provider rules="required|agree" v-slot="{errors}">
+            <input name="m1" type="checkbox" v-model="isChecked" />
+            <span>同意协议并注册《尚品汇用户协议》</span>
+            <span class="error-msg">{{ errors[0] }}</span>
+          </validation-provider>
+        </div>
+        <div class="btn">
+          <button @click="registerHandler" :disabled="invalid">完成注册</button>
+        </div>
       </div>
-      <div class="content">
-        <label>验证码:</label>
-        <input type="text" placeholder="请输入验证码" v-model="code" />
-        <button :disabled="num > 0" @click="sendCodeHandler">
-          发送{{ num > 0 ? `还需要${num}秒` : "成功" }}
-        </button>
-        <span class="error-msg" v-if="!code">错误提示信息</span>
-      </div>
-      <div class="content">
-        <label>登录密码:</label>
-        <input
-          type="text"
-          placeholder="请输入你的登录密码"
-          v-model="passport"
-        />
-        <span class="error-msg" v-if="!passport">错误提示信息</span>
-      </div>
-      <div class="content">
-        <label>确认密码:</label>
-        <input type="text" placeholder="请输入确认密码" v-model="passport2" />
-        <span class="error-msg" v-if="!passport2">错误提示信息</span>
-      </div>
-      <div class="controls">
-        <input name="m1" type="checkbox" v-model="isChecked" />
-        <span>同意协议并注册《尚品汇用户协议》</span>
-        <span class="error-msg" v-if="!isChecked">错误提示信息</span>
-      </div>
-      <div class="btn">
-        <button @click="registerHandler">完成注册</button>
-      </div>
-    </div>
+    </ValidationObserver>
 
     <!-- 底部 -->
     <div class="copyright">
@@ -75,7 +93,7 @@ export default {
       passport: "",
       passport2: "",
       num: 0,
-      isChecked: true,
+      isChecked: true
     };
   },
   methods: {
@@ -108,12 +126,12 @@ export default {
     },
     async registerHandler() {
       const { phone, code, password, password2 } = this;
-      if (phone && code && password && password === password2) {
+      if (phone && password && password === password2) {
         try {
           const result = await this.$store.dispatch("postRegisterAsync", {
             phone,
             code,
-            password,
+            password
           });
           if (result === "ok") {
             alert("注册成功");
@@ -125,8 +143,8 @@ export default {
           alert("失败");
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -8,9 +8,10 @@ import SwiperList from "@/components/SwiperList";
 import Pagination from "@/components/Pagination";
 import * as API from "@/api";
 import "@/mock/mock";
+import "@/utils/veeValidate";
 
 Vue.use(Image);
-Vue.use(elPagination)
+Vue.use(elPagination);
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$confirm = MessageBox.confirm;

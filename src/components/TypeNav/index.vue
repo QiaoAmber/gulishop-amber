@@ -86,7 +86,7 @@ export default {
   methods: {
     moveIn: debounce(function (index) {
       this.currentIndex = index;
-    }, 200),
+    }, 20),
     clickHandler(e) {
       const { categoryname, category1id, category2id, category3id } =
         e.target.dataset;
@@ -241,6 +241,9 @@ export default {
           &.a_active {
             background-color: pink;
             cursor: pointer;
+            .item-list {
+              display: block;
+            }
           }
         }
       }
